@@ -4,6 +4,8 @@ require('dotenv').config()
 const morgan = require('morgan')
 const mongoose = require('mongoose')
 const expressJwt = require('express-jwt')
+//
+const path = require("path")
 /*
 const multer  = require('multer');
 const GridFsStorage = require('multer-gridfs-storage');
@@ -12,6 +14,8 @@ const url = 'mongodb://localhost:27017/socialape'
 
 app.use(express.json())
 app.use(morgan('dev'))
+//
+app.use(express.static(path.join(__dirname, "client", "build")))
 
 const connection = mongoose.connect(
   'mongodb://localhost:27017/socialape',
@@ -66,6 +70,11 @@ app.use((err, req, res, next) => {
   }
   return res.send({errMsg: err.message})
 })
+
+//
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "client", "build", "index.html"));
+});
 
 app.listen(9001, () => {
   console.log(`Server is running on local port 9001`)
