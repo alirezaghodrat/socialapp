@@ -6,6 +6,7 @@ const mongoose = require('mongoose')
 const expressJwt = require('express-jwt')
 //
 const path = require("path")
+const PORT = process.env.PORT || 9001;
 /*
 const multer  = require('multer');
 const GridFsStorage = require('multer-gridfs-storage');
@@ -18,6 +19,7 @@ app.use(morgan('dev'))
 app.use(express.static(path.join(__dirname, "client", "build")))
 
 const connection = mongoose.connect(
+  process.env.MONGODB_URI ||
   'mongodb://localhost:27017/socialape',
   {
     useNewUrlParser: true,
@@ -76,6 +78,4 @@ app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "client", "build", "index.html"));
 });
 
-app.listen(9001, () => {
-  console.log(`Server is running on local port 9001`)
-})
+app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
